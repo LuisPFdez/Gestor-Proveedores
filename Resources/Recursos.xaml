@@ -1,0 +1,16 @@
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:App" 
+    xmlns:System="clr-namespace:System;assembly=mscorlib">
+    
+    <!-- Establece el Enum Tipo, como recurso estatico -->
+    <ObjectDataProvider x:Key="Tipo"
+                        ObjectType="{x:Type System:Enum}"
+                        MethodName="GetValues">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="local:Tipo" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+
+</ResourceDictionary>

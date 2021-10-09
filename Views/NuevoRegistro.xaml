@@ -1,0 +1,49 @@
+<Window x:Class="App.NuevoRegistro"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Height = "520"
+    Width = "350">
+    
+    <!-- Carga de XAML con los recursos --> 
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Recursos.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <!-- Diseño de la aplicación--> 
+
+   <StackPanel Margin="10">
+       <Label Content="Nombre" Target="{Binding ElementName=txtNombre}" VerticalAlignment="center"/>
+        <TextBox x:Name="txtNombre" Padding="5" VerticalAlignment="center"/>
+
+        <Label Content="Telefono" Target="{Binding ElementName=txtTelefono}" VerticalAlignment="center"/>
+        <TextBox x:Name="txtTelefono" Padding="5" VerticalAlignment="center"/>
+
+        <Label Content="Email" Target="{Binding ElementName=txtEmail}" VerticalAlignment="center"/>
+        <TextBox x:Name="txtEmail" Padding="5" VerticalAlignment="center"/>
+
+        <Label Content="Web" Target="{Binding ElementName=txtWeb}" VerticalAlignment="center"/>
+        <TextBox x:Name="txtWeb" Padding="5" VerticalAlignment="center"/>
+
+        <Label Content="Provincia" Target="{Binding ElementName=txtProvincia}" VerticalAlignment="center"/>
+        <TextBox x:Name="txtProvincia" Padding="5" VerticalAlignment="center"/>
+
+        <Label Content="Region" Target="{Binding ElementName=txtRegion}" VerticalAlignment="center"/>
+        <TextBox x:Name="txtRegion" Padding="5" VerticalAlignment="center"/>
+
+        <Label Content="Actividad" Target="{Binding ElementName=txtActividad}"  VerticalAlignment="center"/>
+        <TextBox x:Name="txtActividad"  Padding="5" VerticalAlignment="center"/>
+        
+        <Label Content="Tipo" Target="{Binding ElementName=cbxTipo}" VerticalAlignment="center"/>
+        <ComboBox x:Name="cbxTipo" ItemsSource="{Binding Source={StaticResource Tipo}}" Padding="5" SelectedIndex="0" VerticalAlignment="center"/>
+        
+        <DockPanel Margin="0,5" HorizontalAlignment="Stretch" >
+            <Button HorizontalAlignment="Left" Height="25" Width="75" Content="Aceptar" Click="Crear" />
+            <Button  HorizontalAlignment="Right" Height="25" Width="75" Content="Cancelar" Click="Cancelar" />
+        </DockPanel>
+
+   </StackPanel>
+</Window>
