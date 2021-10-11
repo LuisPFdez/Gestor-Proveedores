@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace App
 {
@@ -75,6 +74,10 @@ namespace App
             Controlador.EsconderColumna();
         }
 
+        void Exportar(object sender, RoutedEventArgs e)
+        {
+            Controlador.Exportar();
+        }
 
     }
 }

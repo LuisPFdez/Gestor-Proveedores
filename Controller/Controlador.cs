@@ -1,8 +1,8 @@
+using System;
 using System.Windows;
 using System.Collections.Generic;
-using System.Windows.Input;
-using System.Windows.Controls;
-using System;
+using Microsoft.Win32;
+using ClosedXML.Excel;
 
 namespace App
 {
@@ -11,6 +11,8 @@ namespace App
 
         public MainWindow Ventana { get; set; }
         private Dictionary<string, string> DatosBusqueda;
+
+        private static readonly String DirectorioInicio = Environment.ExpandEnvironmentVariables("%USERPROFILE%\\Documents");
         public Controlador(MainWindow ventana)
         {
             this.Ventana = ventana;
@@ -111,11 +113,56 @@ namespace App
             FiltrarDatos();
         }
 
-        public void Exportar(){
+        public void Exportar()
+        {
+
+            SaveFileDialog ventana = new SaveFileDialog();
+            ventana.Title = "Exportar archivo";
+            ventana.Filter = "Excel|*.xlsx|Todos los archivos|*.*";
+            ventana.FileName = "Documento";
+            ventana.InitialDirectory = DirectorioInicio;
+            bool? resultado = ventana.ShowDialog();
+
+            if (resultado == true)
+            {
+                ExportarDatos(ventana.FileName);
+            }
 
         }
 
-        public void Importar () {
+        private void ExportarDatos(String ruta)
+        {
+            XLWorkbook wb = new XLWorkbook();
+            IXLWorksheet ws = wb.Worksheets.Add("Datos");
+
+            ws.Cell("A1").SetValue("Nombre");
+            ws.Cell("B1").SetValue("Telefono");
+            ws.Cell("C1").SetValue("Email");
+            ws.Cell("D1").SetValue("Web");
+            ws.Cell("F1").SetValue("Provincia");
+            ws.Cell("G1").SetValue("Region");
+            ws.Cell("H1").SetValue("Actividad");
+            ws.Cell("I1").SetValue("Tipo");
+
+            int i = 2;
+            foreach ( Datos dato in Ventana.DatosGrid ){
+                ws.Cell("A"+i).SetValue(dato.Nombre);
+                ws.Cell("B"+i).SetValue(dato.Telefono);
+                ws.Cell("C"+i).SetValue(dato.Email);
+                ws.Cell("D"+i).SetValue(dato.Web);
+                ws.Cell("F"+i).SetValue(dato.Provincia);
+                ws.Cell("G"+i).SetValue(dato.Region);
+                ws.Cell("H"+i).SetValue(dato.Actividad);
+                ws.Cell("I"+i).SetValue(dato.Tipo);
+
+                i++;
+            }
+
+            wb.SaveAs(ruta);
+        }
+
+        public void Importar()
+        {
 
         }
 
