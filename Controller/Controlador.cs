@@ -60,7 +60,7 @@ namespace App
         {
             if (index == -1)
             {
-                MessageBox.Show("Es necesario selecionar antes un elemento");
+                MessageBox.Show("Es necesario selecionar antes un elemento", "Error");
                 return;
             }
             try
@@ -71,7 +71,7 @@ namespace App
 
                 Ventana.DatosDG.Items.Refresh();
             } catch ( NombreNuloException ){
-                MessageBox.Show("El campo del nombre no puede quedar vacio");
+                MessageBox.Show("El campo del nombre no puede quedar vacio", "Error");
             }
         }
 
@@ -99,7 +99,7 @@ namespace App
         {
             if (index == null)
             {
-                MessageBox.Show("Es necesario selecionar antes un elemento");
+                MessageBox.Show("Es necesario selecionar antes un elemento", "Error");
                 return;
             }
 
@@ -216,15 +216,15 @@ namespace App
             }
             catch (NombreNuloException)
             {
-                MessageBox.Show("Error, una fila contiene un nombre nulo o vacio");
+                MessageBox.Show("Error, una fila contiene un nombre nulo o vacio", "Error");
             }
             catch (TipoErroneoException)
             {
-                MessageBox.Show("Error, el tipo ha de ser CLIENTE o PROVEEDOR");
+                MessageBox.Show("Error, el tipo ha de ser CLIENTE o PROVEEDOR", "Error");
             }
             catch (System.IO.IOException)
             {
-                MessageBox.Show("Error al abrir el archivo, comprueba que otra aplicación no lo tenga abierto");
+                MessageBox.Show("Error al abrir el archivo, comprueba que otra aplicación no lo tenga abierto", "Error");
             }
         }
     }

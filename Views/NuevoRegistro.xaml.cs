@@ -16,7 +16,7 @@ namespace App
         void Crear(object sender, RoutedEventArgs e)
         {
             if (txtNombre.Text.Trim().Length == 0){
-                MessageBox.Show("El campo del nombre no puede quedar vacio");
+                MessageBox.Show("El campo del nombre no puede quedar vacio", "Error");
                 return;
             }
             
