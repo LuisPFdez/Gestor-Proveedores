@@ -17,6 +17,8 @@ namespace App
 
         private static readonly String DirectorioInicio = Environment.ExpandEnvironmentVariables("%USERPROFILE%\\Documents");
 
+        private static readonly String FiltroArchivos = "Libro Excel|*.xlsx";
+
         public Controlador(MainWindow ventana)
         {
             this.Ventana = ventana;
@@ -70,7 +72,9 @@ namespace App
                 (Ventana.DatosDG.Items[index] as Datos).actualizarDatos(elemento);
 
                 Ventana.DatosDG.Items.Refresh();
-            } catch ( NombreNuloException ){
+            }
+            catch (NombreNuloException)
+            {
                 MessageBox.Show("El campo del nombre no puede quedar vacio", "Error");
             }
         }
@@ -126,8 +130,8 @@ namespace App
         {
 
             SaveFileDialog ventana = new SaveFileDialog();
-            ventana.Title = "Exportar archivo";
-            ventana.Filter = "Excel|*.xlsx|Todos los archivos|*.*";
+            ventana.Title = "Guardar archivo";
+            ventana.Filter = FiltroArchivos;
             ventana.FileName = "Documento";
             ventana.InitialDirectory = DirectorioInicio;
             bool? resultado = ventana.ShowDialog();
@@ -141,43 +145,48 @@ namespace App
 
         private void ExportarDatos(String ruta)
         {
-            XLWorkbook wb = new XLWorkbook();
-            IXLWorksheet ws = wb.Worksheets.Add(NombreHojaCalculo);
-
-            ws.Cell("A1").SetValue("Nombre");
-            ws.Cell("B1").SetValue("Telefono");
-            ws.Cell("C1").SetValue("Email");
-            ws.Cell("D1").SetValue("Web");
-            ws.Cell("E1").SetValue("Provincia");
-            ws.Cell("F1").SetValue("Region");
-            ws.Cell("G1").SetValue("Actividad");
-            ws.Cell("H1").SetValue("Tipo");
-
-            int i = 2;
-            foreach (Datos dato in Ventana.DatosGrid)
+            try
             {
-                ws.Cell("A" + i).SetValue(dato.Nombre);
-                ws.Cell("B" + i).SetValue(dato.Telefono);
-                ws.Cell("C" + i).SetValue(dato.Email);
-                ws.Cell("D" + i).SetValue(dato.Web);
-                ws.Cell("E" + i).SetValue(dato.Provincia);
-                ws.Cell("F" + i).SetValue(dato.Region);
-                ws.Cell("G" + i).SetValue(dato.Actividad);
-                ws.Cell("H" + i).SetValue(dato.Tipo);
 
-                i++;
+                XLWorkbook wb = new XLWorkbook();
+                IXLWorksheet ws = wb.Worksheets.Add(NombreHojaCalculo);
+
+                ws.Cell("A1").SetValue("Nombre");
+                ws.Cell("B1").SetValue("Telefono");
+                ws.Cell("C1").SetValue("Email");
+                ws.Cell("D1").SetValue("Web");
+                ws.Cell("E1").SetValue("Provincia");
+                ws.Cell("F1").SetValue("Region");
+                ws.Cell("G1").SetValue("Actividad");
+                ws.Cell("H1").SetValue("Tipo");
+
+                int i = 2;
+                foreach (Datos dato in Ventana.DatosGrid)
+                {
+                    ws.Cell("A" + i).SetValue(dato.Nombre);
+                    ws.Cell("B" + i).SetValue(dato.Telefono);
+                    ws.Cell("C" + i).SetValue(dato.Email);
+                    ws.Cell("D" + i).SetValue(dato.Web);
+                    ws.Cell("E" + i).SetValue(dato.Provincia);
+                    ws.Cell("F" + i).SetValue(dato.Region);
+                    ws.Cell("G" + i).SetValue(dato.Actividad);
+                    ws.Cell("H" + i).SetValue(dato.Tipo);
+
+                    i++;
+                }
+
+                wb.SaveAs(ruta);
             }
-
-
-            wb.SaveAs(ruta);
+            catch (System.IO.IOException) {
+                MessageBox.Show("Error al sobreescibir el archivo, comprueba que otra aplicación no lo tenga abierto", "Error");
+            }
         }
 
         public void Importar()
         {
             OpenFileDialog ventana = new OpenFileDialog();
-            ventana.Title = "Exportar archivo";
-            ventana.Filter = "Excel|*.xlsx|Todos los archivos|*.*";
-            ventana.FileName = "Documento";
+            ventana.Title = "Abrir archivo";
+            ventana.Filter = FiltroArchivos;
             ventana.InitialDirectory = DirectorioInicio;
             bool? resultado = ventana.ShowDialog();
             if (resultado == true && ventana.CheckFileExists == true)
