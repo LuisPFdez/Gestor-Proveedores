@@ -37,6 +37,12 @@ namespace App
 
         public void actualizarDatos(string nombre, string telefono, string email, string web, string provincia, string region, string actividad, string tipo)
         {
+            tipo = tipo.ToUpper().Trim();
+            if ( nombre.Length == 0 || nombre == null){
+                throw new NombreNuloException("El nombre ha de tener algun valor");
+            } 
+            
+
             this.Nombre = nombre;
             this.Telefono = telefono;
             this.Email = email;
@@ -50,7 +56,7 @@ namespace App
             }
             else
             {
-                throw new TipoErroneoException("El tipo introduciodo no existe");
+                throw new TipoErroneoException("El tipo introducido no existe");
             }
         }
 

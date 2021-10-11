@@ -1,4 +1,3 @@
-// using System;
 using System.Windows;
 
 namespace App
@@ -16,6 +15,11 @@ namespace App
 
         void Crear(object sender, RoutedEventArgs e)
         {
+            if (txtNombre.Text.Trim().Length == 0){
+                MessageBox.Show("El campo del nombre no puede quedar vacio");
+                return;
+            }
+            
             this.Close();
             this.Controlador.CrearNuevoRegistro(new Datos(txtNombre.Text, txtTelefono.Text, txtEmail.Text, txtWeb.Text, txtProvincia.Text, txtRegion.Text, txtActividad.Text, cbxTipo.Text));
             

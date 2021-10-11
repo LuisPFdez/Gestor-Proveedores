@@ -10,9 +10,13 @@ namespace App
     {
 
         public MainWindow Ventana { get; set; }
+
         private Dictionary<string, string> DatosBusqueda;
 
+        private static readonly String NombreHojaCalculo = "Datos";
+
         private static readonly String DirectorioInicio = Environment.ExpandEnvironmentVariables("%USERPROFILE%\\Documents");
+
         public Controlador(MainWindow ventana)
         {
             this.Ventana = ventana;
@@ -34,6 +38,7 @@ namespace App
             Ventana.GridPrin.ColumnDefinitions[1].Width = new GridLength(1, GridUnitType.Star);
             Ventana.Columna_Vertical.Visibility = Visibility.Visible;
         }
+
         public void EsconderColumna()
         {
             Ventana.Columna_Vertical.Visibility = Visibility.Collapsed;
@@ -58,12 +63,16 @@ namespace App
                 MessageBox.Show("Es necesario selecionar antes un elemento");
                 return;
             }
+            try
+            {
+                Datos elemento = new Datos(nombre, telefono, email, web, provincia, region, actividad, tipo);
 
-            Datos elemento = new Datos(nombre, telefono, email, web, provincia, region, actividad, tipo);
+                (Ventana.DatosDG.Items[index] as Datos).actualizarDatos(elemento);
 
-            (Ventana.DatosDG.Items[index] as Datos).actualizarDatos(elemento);
-
-            Ventana.DatosDG.Items.Refresh();
+                Ventana.DatosDG.Items.Refresh();
+            } catch ( NombreNuloException ){
+                MessageBox.Show("El campo del nombre no puede quedar vacio");
+            }
         }
 
 
@@ -133,38 +142,90 @@ namespace App
         private void ExportarDatos(String ruta)
         {
             XLWorkbook wb = new XLWorkbook();
-            IXLWorksheet ws = wb.Worksheets.Add("Datos");
+            IXLWorksheet ws = wb.Worksheets.Add(NombreHojaCalculo);
 
             ws.Cell("A1").SetValue("Nombre");
             ws.Cell("B1").SetValue("Telefono");
             ws.Cell("C1").SetValue("Email");
             ws.Cell("D1").SetValue("Web");
-            ws.Cell("F1").SetValue("Provincia");
-            ws.Cell("G1").SetValue("Region");
-            ws.Cell("H1").SetValue("Actividad");
-            ws.Cell("I1").SetValue("Tipo");
+            ws.Cell("E1").SetValue("Provincia");
+            ws.Cell("F1").SetValue("Region");
+            ws.Cell("G1").SetValue("Actividad");
+            ws.Cell("H1").SetValue("Tipo");
 
             int i = 2;
-            foreach ( Datos dato in Ventana.DatosGrid ){
-                ws.Cell("A"+i).SetValue(dato.Nombre);
-                ws.Cell("B"+i).SetValue(dato.Telefono);
-                ws.Cell("C"+i).SetValue(dato.Email);
-                ws.Cell("D"+i).SetValue(dato.Web);
-                ws.Cell("F"+i).SetValue(dato.Provincia);
-                ws.Cell("G"+i).SetValue(dato.Region);
-                ws.Cell("H"+i).SetValue(dato.Actividad);
-                ws.Cell("I"+i).SetValue(dato.Tipo);
+            foreach (Datos dato in Ventana.DatosGrid)
+            {
+                ws.Cell("A" + i).SetValue(dato.Nombre);
+                ws.Cell("B" + i).SetValue(dato.Telefono);
+                ws.Cell("C" + i).SetValue(dato.Email);
+                ws.Cell("D" + i).SetValue(dato.Web);
+                ws.Cell("E" + i).SetValue(dato.Provincia);
+                ws.Cell("F" + i).SetValue(dato.Region);
+                ws.Cell("G" + i).SetValue(dato.Actividad);
+                ws.Cell("H" + i).SetValue(dato.Tipo);
 
                 i++;
             }
+
 
             wb.SaveAs(ruta);
         }
 
         public void Importar()
         {
-
+            OpenFileDialog ventana = new OpenFileDialog();
+            ventana.Title = "Exportar archivo";
+            ventana.Filter = "Excel|*.xlsx|Todos los archivos|*.*";
+            ventana.FileName = "Documento";
+            ventana.InitialDirectory = DirectorioInicio;
+            bool? resultado = ventana.ShowDialog();
+            if (resultado == true && ventana.CheckFileExists == true)
+            {
+                ImportarDatos(ventana.FileName);
+            }
         }
 
+        private void ImportarDatos(String ruta)
+        {
+            try
+            {
+
+                XLWorkbook wb = new XLWorkbook(ruta);
+                IXLWorksheet ws = wb.Worksheet(NombreHojaCalculo);
+                List<Datos> tmpDatos = new List<Datos>();
+
+                IXLRow siguienteFila = ws.Row(2);
+                while (!siguienteFila.IsEmpty())
+                {
+                    tmpDatos.Add(new Datos(
+                        siguienteFila.Cell(1).GetString(),
+                        siguienteFila.Cell(2).GetString(),
+                        siguienteFila.Cell(3).GetString(),
+                        siguienteFila.Cell(4).GetString(),
+                        siguienteFila.Cell(5).GetString(),
+                        siguienteFila.Cell(6).GetString(),
+                        siguienteFila.Cell(7).GetString(),
+                        siguienteFila.Cell(8).GetString()
+                    ));
+                    siguienteFila = siguienteFila.RowBelow();
+                }
+
+                Ventana.DatosGrid = tmpDatos;
+                FiltrarDatos();
+            }
+            catch (NombreNuloException)
+            {
+                MessageBox.Show("Error, una fila contiene un nombre nulo o vacio");
+            }
+            catch (TipoErroneoException)
+            {
+                MessageBox.Show("Error, el tipo ha de ser CLIENTE o PROVEEDOR");
+            }
+            catch (System.IO.IOException)
+            {
+                MessageBox.Show("Error al abrir el archivo, comprueba que otra aplicación no lo tenga abierto");
+            }
+        }
     }
 }

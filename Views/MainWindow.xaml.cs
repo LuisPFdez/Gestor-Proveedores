@@ -65,8 +65,8 @@ namespace App
 
         void NuevoRegistro(object sender, RoutedEventArgs e)
         {
-            // Controlador.NuevoRegistro();
-            Controlador.Cargar();
+            Controlador.NuevoRegistro();
+            // Controlador.Cargar();
         }
 
         void CerrarBoton(object sender, RoutedEventArgs e)
@@ -77,6 +77,11 @@ namespace App
         void Exportar(object sender, RoutedEventArgs e)
         {
             Controlador.Exportar();
+        }
+
+        void Importar(object sender, RoutedEventArgs e)
+        {
+            Controlador.Importar();
         }
 
     }
