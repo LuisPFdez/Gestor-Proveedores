@@ -4,6 +4,7 @@
     Height = "520"
     Width = "350"
     ResizeMode="NoResize"
+    Icon="..\Img\Icon.ico"
     >
     
     <!-- Carga de XAML con los recursos --> 

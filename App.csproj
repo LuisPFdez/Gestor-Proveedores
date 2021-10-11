@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="closedxml" Version="0.95.4" />
+    <Resource Include=".\Img\Icon.ico" />
   </ItemGroup>
-
+  
 </Project>
