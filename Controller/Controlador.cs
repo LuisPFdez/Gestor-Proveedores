@@ -1,6 +1,7 @@
 using System;
 using System.Windows;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.Win32;
 using ClosedXML.Excel;
 
@@ -19,6 +20,9 @@ namespace App
 
         private static readonly String FiltroArchivos = "Libro Excel|*.xlsx";
 
+
+        private List<Task> Tareas;
+
         public Controlador(MainWindow ventana)
         {
             this.Ventana = ventana;
@@ -32,6 +36,8 @@ namespace App
                 {"Actividad", ""},
                 {"Tipo", ""}
             };
+
+            Tareas = new List<Task>();
 
         }
 
@@ -53,7 +59,23 @@ namespace App
             this.Ventana.DatosGrid.Add(new Datos("Algo", "Mas", "DASd", "dsad", "dasd", "dasd", "dasd", "CLIENTE"));
             this.Ventana.DatosGrid.Add(new Datos("Algdasdasdo", "ddasdasd", "DAdasdSd", "dsadasds", "dasdfsdfdsf", "dasrwerd", "werew", "PROVEEDOR"));
             this.Ventana.DatosGrid.Add(new Datos("Algdasdasdo", "ddasdasd", "DAdasdSd", "dsadasds", "dasdfsdfdsf", "dasrwerd", "werew", "PROVEEDOR"));
-
+            this.Ventana.DatosGrid.Add(new Datos("asdas", "ddasdasd", "DAdasdSd", "dsadasds", "dasdfsdfdsf", "dasrwerd", "werew", "PROVEEDOR"));
+            this.Ventana.DatosGrid.Add(new Datos("Algdasdasdo", "ddasdasd", "DAdasdSd", "dsadasds", "dasdfsdfdsf", "dasrwerd", "werew", "PROVEEDOR"));
+            this.Ventana.DatosGrid.Add(new Datos("Algdasdasdo", "ddasdasd", "DAdasdSd", "dsadasds", "dasdfsdfdsf", "dasrwerd", "werew", "PROVEEDOR"));
+            this.Ventana.DatosGrid.Add(new Datos("Algdasddasdasdo", "ddasdasd", "DAdasdSd", "dsadasds", "dasdfsdfdsf", "dasrwerd", "werew", "PROVEEDOR"));
+            this.Ventana.DatosGrid.Add(new Datos("AlgdaddSDFSasdasdo", "ddasFSSDFdasd", "DAdasdSd", "dsadasds", "dasdfsdfdsf", "dasrwerd", "werew", "PROVEEDOR"));
+            this.Ventana.DatosGrid.Add(new Datos("Algdasdasdo", "ddasdasd", "DAdasdSd", "dsadasds", "ASDASD", "dasrwerd", "weFSDSDFrew", "PROVEEDOR"));
+            this.Ventana.DatosGrid.Add(new Datos("AlgdDFSDasdasdo", "ddasdasd", "DAdasdSd", "dsadasds", "DAS", "dasrwerd", "werSDFSew", "PROVEEDOR"));
+            this.Ventana.DatosGrid.Add(new Datos("AlDFSgdasasdadasdo", "ddasdasd", "DAdasdSd", "dsadasds", "dasdFDFSFSfsdfdsf", "fgh", "weSFDSDFrew", "PROVEEDOR"));
+            this.Ventana.DatosGrid.Add(new Datos("Algdasdadasdo", "ddasdasd", "DAdasdSd", "dsadasds", "dasdfhSFDfghfgsdfdsf", "dasrSFDFSwerd", "weSDFSDFrew", "CLIENTE"));
+            this.Ventana.DatosGrid.Add(new Datos("AlgdaSsdasdo", "ddasdagfdgdfadsd", "DAdasdSd", "dsadhgffghasds", "dasdfsdSFDfdsf", "dasrSFDSFDwerd", "werew", "PROVEEDOR"));
+            this.Ventana.DatosGrid.Add(new Datos("FSSAlDFSgdadaasdasdo", "ddasdasd", "DAdasdSd", "dsadasds", "dasdfsdfdsf", "dasrweSFrd", "werDFSFew", "PROVEEDOR"));
+            this.Ventana.DatosGrid.Add(new Datos("Algdadassdasdo", "ddasahfsdagdfsd", "DAghjgjdasdSd", "dsadasds", "dasdfsdfFDSdsf", "dasrFSSwerd", "werew", "PROVEEDOR"));
+            this.Ventana.DatosGrid.Add(new Datos("AlFSDgddaddasdasdo", "fhDASDASg", "DAdDAasdSd", "dsadasds", "dasdfsdfdsf", "dasrweSDrd", "werFSFSDFew", "PROVEEDOR"));
+            this.Ventana.DatosGrid.Add(new Datos("AlgdaSDASsdasdo", "ddasdagfdgdfDASDAadsd", "DAdasdSd", "dsadhgffghasds", "dasdfsdSFDfdsf", "dasrSFDSFDwerd", "werew", "PROVEEDOR"));
+            this.Ventana.DatosGrid.Add(new Datos("FSSAlDFASDDASSgdadaasdasdo", "ddasSDADAdasd", "DAdaDASAsdSd", "dsadaDASsds", "dasdfsdfdsf", "dasrweSFrd", "werDFSFew", "PROVEEDOR"));
+            this.Ventana.DatosGrid.Add(new Datos("DASDAS", "ddasahfsADSSADdagdfsd", "DAASDAghjgjdasDAdSd", "dsadSDASasds", "dasdfsdfFDSdsf", "dasrFSSwerd", "werew", "PROVEEDOR"));
+            this.Ventana.DatosGrid.Add(new Datos("AlFSDgAASDASDDAddaDASddasdasdo", "fhg", "DAdaDASsdSd", "dsASDAadasds", "dasdfsdfdsf", "dasrweSDrd", "werFSFSDFew", "PROVEEDOR"));
             FiltrarDatos();
 
         }
@@ -126,6 +148,12 @@ namespace App
             FiltrarDatos();
         }
 
+        public void FinalizarGuardados()
+        {
+            Task.WaitAll(Tareas.ToArray());
+            Tareas = new List<Task>();
+        }
+
         public void Exportar()
         {
 
@@ -138,7 +166,10 @@ namespace App
 
             if (resultado == true)
             {
-                ExportarDatos(ventana.FileName);
+                Tareas.Add(Task.Run(() =>
+                {
+                    ExportarDatos(ventana.FileName);
+                }));
             }
 
         }
@@ -177,7 +208,8 @@ namespace App
 
                 wb.SaveAs(ruta);
             }
-            catch (System.IO.IOException) {
+            catch (System.IO.IOException)
+            {
                 MessageBox.Show("Error al sobreescibir el archivo, comprueba que otra aplicación no lo tenga abierto", "Error");
             }
         }
@@ -191,6 +223,7 @@ namespace App
             bool? resultado = ventana.ShowDialog();
             if (resultado == true && ventana.CheckFileExists == true)
             {
+                FinalizarGuardados();
                 ImportarDatos(ventana.FileName);
             }
         }

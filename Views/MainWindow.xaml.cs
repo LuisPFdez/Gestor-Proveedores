@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -65,8 +66,8 @@ namespace App
 
         void NuevoRegistro(object sender, RoutedEventArgs e)
         {
-            Controlador.NuevoRegistro();
-            // Controlador.Cargar();
+            //Controlador.NuevoRegistro();
+            Controlador.Cargar();
         }
 
         void CerrarBoton(object sender, RoutedEventArgs e)
@@ -82,6 +83,11 @@ namespace App
         void Importar(object sender, RoutedEventArgs e)
         {
             Controlador.Importar();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            Controlador.FinalizarGuardados();
         }
 
     }
