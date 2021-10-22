@@ -66,8 +66,7 @@ namespace App
 
         void NuevoRegistro(object sender, RoutedEventArgs e)
         {
-            //Controlador.NuevoRegistro();
-            Controlador.Cargar();
+            Controlador.NuevoRegistro();
         }
 
         void CerrarBoton(object sender, RoutedEventArgs e)
@@ -87,7 +86,22 @@ namespace App
 
         protected override void OnClosing(CancelEventArgs e)
         {
+            e.Cancel = true;
             Controlador.FinalizarGuardados();
+            if (Controlador.CambiosRealizados)
+            {
+                MessageBoxResult result = MessageBox.Show("Hay cambios sin guardar, ¿Desea continuar?", "Error", MessageBoxButton.YesNoCancel);
+                if (result == MessageBoxResult.Yes)
+                {
+                    Controlador.Exportar();
+                }
+                else if (result == MessageBoxResult.Cancel)
+                {
+                    return;
+                }
+            }
+
+            e.Cancel = false;
         }
 
     }

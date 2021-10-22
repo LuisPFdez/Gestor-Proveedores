@@ -11,6 +11,7 @@ namespace App
     {
 
         public MainWindow Ventana { get; set; }
+        public bool CambiosRealizados { get; set; }
 
         private Dictionary<string, string> DatosBusqueda;
 
@@ -38,7 +39,7 @@ namespace App
             };
 
             Tareas = new List<Task>();
-
+            CambiosRealizados = false;
         }
 
         public void MostrarColumna()
@@ -51,33 +52,6 @@ namespace App
         {
             Ventana.Columna_Vertical.Visibility = Visibility.Collapsed;
             Ventana.GridPrin.ColumnDefinitions[1].Width = new GridLength(0, GridUnitType.Star);
-        }
-
-        public void Cargar()
-        {
-            this.Ventana.DatosGrid.Add(new Datos("Datos"));
-            this.Ventana.DatosGrid.Add(new Datos("Algo", "Mas", "DASd", "dsad", "dasd", "dasd", "dasd", "CLIENTE"));
-            this.Ventana.DatosGrid.Add(new Datos("Algdasdasdo", "ddasdasd", "DAdasdSd", "dsadasds", "dasdfsdfdsf", "dasrwerd", "werew", "PROVEEDOR"));
-            this.Ventana.DatosGrid.Add(new Datos("Algdasdasdo", "ddasdasd", "DAdasdSd", "dsadasds", "dasdfsdfdsf", "dasrwerd", "werew", "PROVEEDOR"));
-            this.Ventana.DatosGrid.Add(new Datos("asdas", "ddasdasd", "DAdasdSd", "dsadasds", "dasdfsdfdsf", "dasrwerd", "werew", "PROVEEDOR"));
-            this.Ventana.DatosGrid.Add(new Datos("Algdasdasdo", "ddasdasd", "DAdasdSd", "dsadasds", "dasdfsdfdsf", "dasrwerd", "werew", "PROVEEDOR"));
-            this.Ventana.DatosGrid.Add(new Datos("Algdasdasdo", "ddasdasd", "DAdasdSd", "dsadasds", "dasdfsdfdsf", "dasrwerd", "werew", "PROVEEDOR"));
-            this.Ventana.DatosGrid.Add(new Datos("Algdasddasdasdo", "ddasdasd", "DAdasdSd", "dsadasds", "dasdfsdfdsf", "dasrwerd", "werew", "PROVEEDOR"));
-            this.Ventana.DatosGrid.Add(new Datos("AlgdaddSDFSasdasdo", "ddasFSSDFdasd", "DAdasdSd", "dsadasds", "dasdfsdfdsf", "dasrwerd", "werew", "PROVEEDOR"));
-            this.Ventana.DatosGrid.Add(new Datos("Algdasdasdo", "ddasdasd", "DAdasdSd", "dsadasds", "ASDASD", "dasrwerd", "weFSDSDFrew", "PROVEEDOR"));
-            this.Ventana.DatosGrid.Add(new Datos("AlgdDFSDasdasdo", "ddasdasd", "DAdasdSd", "dsadasds", "DAS", "dasrwerd", "werSDFSew", "PROVEEDOR"));
-            this.Ventana.DatosGrid.Add(new Datos("AlDFSgdasasdadasdo", "ddasdasd", "DAdasdSd", "dsadasds", "dasdFDFSFSfsdfdsf", "fgh", "weSFDSDFrew", "PROVEEDOR"));
-            this.Ventana.DatosGrid.Add(new Datos("Algdasdadasdo", "ddasdasd", "DAdasdSd", "dsadasds", "dasdfhSFDfghfgsdfdsf", "dasrSFDFSwerd", "weSDFSDFrew", "CLIENTE"));
-            this.Ventana.DatosGrid.Add(new Datos("AlgdaSsdasdo", "ddasdagfdgdfadsd", "DAdasdSd", "dsadhgffghasds", "dasdfsdSFDfdsf", "dasrSFDSFDwerd", "werew", "PROVEEDOR"));
-            this.Ventana.DatosGrid.Add(new Datos("FSSAlDFSgdadaasdasdo", "ddasdasd", "DAdasdSd", "dsadasds", "dasdfsdfdsf", "dasrweSFrd", "werDFSFew", "PROVEEDOR"));
-            this.Ventana.DatosGrid.Add(new Datos("Algdadassdasdo", "ddasahfsdagdfsd", "DAghjgjdasdSd", "dsadasds", "dasdfsdfFDSdsf", "dasrFSSwerd", "werew", "PROVEEDOR"));
-            this.Ventana.DatosGrid.Add(new Datos("AlFSDgddaddasdasdo", "fhDASDASg", "DAdDAasdSd", "dsadasds", "dasdfsdfdsf", "dasrweSDrd", "werFSFSDFew", "PROVEEDOR"));
-            this.Ventana.DatosGrid.Add(new Datos("AlgdaSDASsdasdo", "ddasdagfdgdfDASDAadsd", "DAdasdSd", "dsadhgffghasds", "dasdfsdSFDfdsf", "dasrSFDSFDwerd", "werew", "PROVEEDOR"));
-            this.Ventana.DatosGrid.Add(new Datos("FSSAlDFASDDASSgdadaasdasdo", "ddasSDADAdasd", "DAdaDASAsdSd", "dsadaDASsds", "dasdfsdfdsf", "dasrweSFrd", "werDFSFew", "PROVEEDOR"));
-            this.Ventana.DatosGrid.Add(new Datos("DASDAS", "ddasahfsADSSADdagdfsd", "DAASDAghjgjdasDAdSd", "dsadSDASasds", "dasdfsdfFDSdsf", "dasrFSSwerd", "werew", "PROVEEDOR"));
-            this.Ventana.DatosGrid.Add(new Datos("AlFSDgAASDASDDAddaDASddasdasdo", "fhg", "DAdaDASsdSd", "dsASDAadasds", "dasdfsdfdsf", "dasrweSDrd", "werFSFSDFew", "PROVEEDOR"));
-            FiltrarDatos();
-
         }
 
         public void EditarColumna(int index, String nombre, String telefono, String email, String web, String provincia, String region, String actividad, String tipo)
@@ -93,6 +67,7 @@ namespace App
 
                 (Ventana.DatosDG.Items[index] as Datos).actualizarDatos(elemento);
 
+                CambiosRealizados = true;
                 Ventana.DatosDG.Items.Refresh();
             }
             catch (NombreNuloException)
@@ -129,6 +104,7 @@ namespace App
                 return;
             }
 
+            CambiosRealizados = true;
             Ventana.DatosGrid.Remove(index);
 
             EsconderColumna();
@@ -145,6 +121,7 @@ namespace App
         public void CrearNuevoRegistro(Datos registro)
         {
             Ventana.DatosGrid.Add(registro);
+            CambiosRealizados = true;
             FiltrarDatos();
         }
 
@@ -224,6 +201,19 @@ namespace App
             if (resultado == true && ventana.CheckFileExists == true)
             {
                 FinalizarGuardados();
+                if (CambiosRealizados)
+                {
+                    MessageBoxResult result = MessageBox.Show("Hay cambios sin guardar, ¿Desea continuar?", "Error", MessageBoxButton.YesNoCancel);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        Exportar();
+                    }
+                    else if (result == MessageBoxResult.Cancel)
+                    {
+                        return;
+                    }
+                }
+
                 ImportarDatos(ventana.FileName);
             }
         }
@@ -254,6 +244,7 @@ namespace App
                 }
 
                 Ventana.DatosGrid = tmpDatos;
+                CambiosRealizados = false;
                 FiltrarDatos();
             }
             catch (NombreNuloException)

@@ -8,7 +8,12 @@ namespace App
             set;
         }
 
-        void Cargar();
+        bool CambiosRealizados
+        {
+            get;
+            set;
+        }
+
         void NuevoRegistro();
         void CrearNuevoRegistro(Datos registro);
     }
