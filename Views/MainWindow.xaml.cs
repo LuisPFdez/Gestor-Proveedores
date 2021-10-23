@@ -35,8 +35,10 @@ namespace App
             if (info == null) return;
 
             txtNombre.Text = info.Nombre;
-            txtTelefono.Text = info.Telefono;
-            txtEmail.Text = info.Email;
+            txtTelefono1.Text = info.Telefono1;
+            txtTelefono2.Text = info.Telefono2;
+            txtEmail1.Text = info.Email1;
+            txtEmail2.Text = info.Email2;
             txtWeb.Text = info.Web;
             txtProvincia.Text = info.Provincia;
             txtRegion.Text = info.Region;
@@ -48,7 +50,7 @@ namespace App
 
         void EditarElemento(object sender, RoutedEventArgs e)
         {
-            Controlador.EditarColumna(DatosDG.SelectedIndex, txtNombre.Text, txtTelefono.Text, txtEmail.Text, txtWeb.Text, txtProvincia.Text, txtRegion.Text, txtActividad.Text, cbxTipo.Text);
+            Controlador.EditarColumna(DatosDG.SelectedIndex, txtNombre.Text, txtTelefono1.Text, txtTelefono2.Text, txtEmail1.Text, txtEmail2.Text, txtWeb.Text, txtProvincia.Text, txtRegion.Text, txtActividad.Text, cbxTipo.Text);
         }
 
         void BorrarElemento(object sender, RoutedEventArgs e)

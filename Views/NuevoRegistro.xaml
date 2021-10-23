@@ -1,7 +1,7 @@
 <Window x:Class="App.NuevoRegistro"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Height = "520"
+    Height = "628"
     Width = "350"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
@@ -23,11 +23,17 @@
        <Label Content="Nombre" Target="{Binding ElementName=txtNombre}" VerticalAlignment="center"/>
         <TextBox x:Name="txtNombre" Padding="5" VerticalAlignment="center"/>
 
-        <Label Content="Telefono" Target="{Binding ElementName=txtTelefono}" VerticalAlignment="center"/>
-        <TextBox x:Name="txtTelefono" Padding="5" VerticalAlignment="center"/>
+        <Label Content="Telefono 1" Target="{Binding ElementName=txtTelefono1}" VerticalAlignment="center"/>
+        <TextBox x:Name="txtTelefono1" Padding="5" VerticalAlignment="center"/>
+        
+        <Label Content="Telefono 2" Target="{Binding ElementName=txtTelefono2}" VerticalAlignment="center"/>
+        <TextBox x:Name="txtTelefono2" Padding="5" VerticalAlignment="center"/>
 
-        <Label Content="Email" Target="{Binding ElementName=txtEmail}" VerticalAlignment="center"/>
-        <TextBox x:Name="txtEmail" Padding="5" VerticalAlignment="center"/>
+        <Label Content="Email 1" Target="{Binding ElementName=txtEmail1}" VerticalAlignment="center"/>
+        <TextBox x:Name="txtEmail1" Padding="5" VerticalAlignment="center"/>
+        
+        <Label Content="Email 2" Target="{Binding ElementName=txtEmail2}" VerticalAlignment="center"/>
+        <TextBox x:Name="txtEmail2" Padding="5" VerticalAlignment="center"/>
 
         <Label Content="Web" Target="{Binding ElementName=txtWeb}" VerticalAlignment="center"/>
         <TextBox x:Name="txtWeb" Padding="5" VerticalAlignment="center"/>

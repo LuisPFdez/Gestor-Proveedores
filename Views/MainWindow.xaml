@@ -76,10 +76,13 @@
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Nombre" Binding="{Binding Nombre}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
-                <DataGridTextColumn Width="*" Header="Telefono" Binding="{Binding Telefono}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
-                <DataGridTextColumn Width="*" Header="Email" Binding="{Binding Email}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
-                <DataGridTextColumn Width="*" Header="Web" Binding="{Binding Web}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
+                <DataGridTextColumn Width="*" Header="Telefono1" Binding="{Binding Telefono1}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
+                <DataGridTextColumn Width="*" Header="Telefono2" Binding="{Binding Telefono2}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
+                <DataGridTextColumn Width="*" Header="Email1" Binding="{Binding Email1}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
+                <DataGridTextColumn Width="*" Header="Email2" Binding="{Binding Email2}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
+
                 
+                <DataGridTextColumn Width="*" Header="Web" Binding="{Binding Web}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
                 <DataGridTextColumn Width="*" Header="Provincia" Binding="{Binding Provincia}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}"/>
                 <DataGridTextColumn Width="*" Header="Region" Binding="{Binding Region}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
                 <DataGridTextColumn Width="*" Header="Actividad" Binding="{Binding Actividad}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}"/>
@@ -105,17 +108,25 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
     
             <Label Content="Nombre" Target="{Binding ElementName=txtNombre}" Grid.Column="0" Grid.Row="0" VerticalAlignment="center"/>
             <TextBox x:Name="txtNombre"  Grid.Column="1" Grid.Row="0" Padding="5" VerticalAlignment="center"/>
 
-            <Label Content="Telefono" Target="{Binding ElementName=txtTelefono}" Grid.Column="0" Grid.Row="1" VerticalAlignment="center"/>
-            <TextBox x:Name="txtTelefono"  Grid.Column="1" Grid.Row="1" Padding="5" VerticalAlignment="center"/>
+            <Label Content="Telefono 1" Target="{Binding ElementName=txtTelefono1}" Grid.Column="0" Grid.Row="1" VerticalAlignment="center"/>
+            <TextBox x:Name="txtTelefono1"  Grid.Column="1" Grid.Row="1" Padding="5" VerticalAlignment="center"/>
+            
+            <Label Content="Telefono 2" Target="{Binding ElementName=txtTelefono2}" Grid.Column="0" Grid.Row="1" VerticalAlignment="center"/>
+            <TextBox x:Name="txtTelefono2"  Grid.Column="1" Grid.Row="1" Padding="5" VerticalAlignment="center"/>
 
-            <Label Content="Email" Target="{Binding ElementName=txtEmail}" Grid.Column="0" Grid.Row="2" VerticalAlignment="center"/>
-            <TextBox x:Name="txtEmail"  Grid.Column="1" Grid.Row="2" Padding="5" VerticalAlignment="center"/>
+            <Label Content="Email 1" Target="{Binding ElementName=txtEmail1}" Grid.Column="0" Grid.Row="2" VerticalAlignment="center"/>
+            <TextBox x:Name="txtEmail1"  Grid.Column="1" Grid.Row="2" Padding="5" VerticalAlignment="center"/>
 
+            <Label Content="Email 2" Target="{Binding ElementName=txtEmail2}" Grid.Column="0" Grid.Row="2" VerticalAlignment="center"/>
+            <TextBox x:Name="txtEmail2"  Grid.Column="1" Grid.Row="2" Padding="5" VerticalAlignment="center"/>
+            
             <Label Content="Web" Target="{Binding ElementName=txtWeb}" Grid.Column="0" Grid.Row="3" VerticalAlignment="center"/>
             <TextBox x:Name="txtWeb"  Grid.Column="1" Grid.Row="3" Padding="5" VerticalAlignment="center"/>
 

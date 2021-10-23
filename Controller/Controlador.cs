@@ -29,8 +29,10 @@ namespace App
             this.Ventana = ventana;
             DatosBusqueda = new Dictionary<string, string>(){
                 {"Nombre", ""},
-                {"Telefono", ""},
-                {"Email", ""},
+                {"Telefono1", ""},
+                {"Telefono2", ""},
+                {"Email1", ""},
+                {"Email2", ""},
                 {"Web", ""},
                 {"Provincia", ""},
                 {"Region", ""},
@@ -54,7 +56,7 @@ namespace App
             Ventana.GridPrin.ColumnDefinitions[1].Width = new GridLength(0, GridUnitType.Star);
         }
 
-        public void EditarColumna(int index, String nombre, String telefono, String email, String web, String provincia, String region, String actividad, String tipo)
+        public void EditarColumna(int index, String nombre, String telefono1, String telefono2, String email1, String email2, String web, String provincia, String region, String actividad, String tipo)
         {
             if (index == -1)
             {
@@ -63,7 +65,7 @@ namespace App
             }
             try
             {
-                Datos elemento = new Datos(nombre, telefono, email, web, provincia, region, actividad, tipo);
+                Datos elemento = new Datos(nombre, telefono1, telefono2, email1, email2, web, provincia, region, actividad, tipo);
 
                 (Ventana.DatosDG.Items[index] as Datos).actualizarDatos(elemento);
 
@@ -88,7 +90,8 @@ namespace App
             Ventana.DatosDG.ItemsSource = Ventana.DatosGrid.FindAll((Elemento) =>
                 {
                     return Elemento.comparar(DatosBusqueda["Nombre"],
-                    DatosBusqueda["Telefono"], DatosBusqueda["Email"],
+                    DatosBusqueda["Telefono1"], DatosBusqueda["Telefono2"],
+                    DatosBusqueda["Email1"], DatosBusqueda["Email2"],
                     DatosBusqueda["Web"], DatosBusqueda["Provincia"],
                     DatosBusqueda["Region"], DatosBusqueda["Actividad"],
                     DatosBusqueda["Tipo"]);
@@ -160,25 +163,29 @@ namespace App
                 IXLWorksheet ws = wb.Worksheets.Add(NombreHojaCalculo);
 
                 ws.Cell("A1").SetValue("Nombre");
-                ws.Cell("B1").SetValue("Telefono");
-                ws.Cell("C1").SetValue("Email");
-                ws.Cell("D1").SetValue("Web");
-                ws.Cell("E1").SetValue("Provincia");
-                ws.Cell("F1").SetValue("Region");
-                ws.Cell("G1").SetValue("Actividad");
-                ws.Cell("H1").SetValue("Tipo");
+                ws.Cell("B1").SetValue("Telefono 1");
+                ws.Cell("C1").SetValue("Telefono 2");
+                ws.Cell("D1").SetValue("Email 1");
+                ws.Cell("E1").SetValue("Email 2");
+                ws.Cell("F1").SetValue("Web");
+                ws.Cell("G1").SetValue("Provincia");
+                ws.Cell("H1").SetValue("Region");
+                ws.Cell("I1").SetValue("Actividad");
+                ws.Cell("J1").SetValue("Tipo");
 
                 int i = 2;
                 foreach (Datos dato in Ventana.DatosGrid)
                 {
                     ws.Cell("A" + i).SetValue(dato.Nombre);
-                    ws.Cell("B" + i).SetValue(dato.Telefono);
-                    ws.Cell("C" + i).SetValue(dato.Email);
-                    ws.Cell("D" + i).SetValue(dato.Web);
-                    ws.Cell("E" + i).SetValue(dato.Provincia);
-                    ws.Cell("F" + i).SetValue(dato.Region);
-                    ws.Cell("G" + i).SetValue(dato.Actividad);
-                    ws.Cell("H" + i).SetValue(dato.Tipo);
+                    ws.Cell("B" + i).SetValue(dato.Telefono1);
+                    ws.Cell("C" + i).SetValue(dato.Telefono2);
+                    ws.Cell("D" + i).SetValue(dato.Email1);
+                    ws.Cell("E" + i).SetValue(dato.Email2);
+                    ws.Cell("F" + i).SetValue(dato.Web);
+                    ws.Cell("G" + i).SetValue(dato.Provincia);
+                    ws.Cell("H" + i).SetValue(dato.Region);
+                    ws.Cell("I" + i).SetValue(dato.Actividad);
+                    ws.Cell("J" + i).SetValue(dato.Tipo);
 
                     i++;
                 }
@@ -238,7 +245,9 @@ namespace App
                         siguienteFila.Cell(5).GetString(),
                         siguienteFila.Cell(6).GetString(),
                         siguienteFila.Cell(7).GetString(),
-                        siguienteFila.Cell(8).GetString()
+                        siguienteFila.Cell(8).GetString(),
+                        siguienteFila.Cell(9).GetString(),
+                        siguienteFila.Cell(10).GetString()
                     ));
                     siguienteFila = siguienteFila.RowBelow();
                 }
