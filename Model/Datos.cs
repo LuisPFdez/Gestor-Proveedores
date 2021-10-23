@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using System.Reflection;
 namespace App
 {
     public enum Tipo
@@ -74,16 +72,90 @@ namespace App
 
         public bool comparar(string nombre, string telefono1, string telefono2, string email1, string email2, string web, string provincia, string region, string actividad, string tipo)
         {
-            string[] parametros = { nombre, telefono1, telefono2, email1, email2, web, provincia, region, actividad, tipo };
-            string[] valores = { this.Nombre, this.Telefono1, this.Telefono2, this.Email1, this.Email2, this.Web, this.Provincia, this.Region, this.Actividad, this.Tipo.ToString() };
+            if (nombre.Length > 0)
+            {
+                if (this.Nombre == null || this.Nombre.IndexOf(nombre, System.StringComparison.CurrentCultureIgnoreCase) < 0)
+                {
+                    return false;
+                }
+            }
 
-            for ( int i = 0; i < valores.Length; i++){
-                if ( parametros[i].Length == 0 ) continue;
-                if ( valores[i] == null || valores[i].IndexOf(parametros[i]) < 0  ) return false;
+            if (telefono1.Length > 0)
+            {
+                if (this.Telefono1 == null || this.Telefono1.IndexOf(telefono1, System.StringComparison.CurrentCultureIgnoreCase) < 0)
+                {
+                    return false;
+                }
+            }
+
+            if (telefono2.Length > 0)
+            {
+                if (this.Telefono2 == null || this.Telefono2.IndexOf(telefono2, System.StringComparison.CurrentCultureIgnoreCase) < 0)
+                {
+                    return false;
+                }
+            }
+
+            if (email1.Length > 0)
+            {
+                if (this.Email1 == null || this.Email1.IndexOf(email1, System.StringComparison.CurrentCultureIgnoreCase) < 0)
+                {
+                    return false;
+                }
+            }
+
+            if (email2.Length > 0)
+            {
+                if (this.Email2 == null || this.Email2.IndexOf(email2, System.StringComparison.CurrentCultureIgnoreCase) < 0)
+                {
+                    return false;
+                }
+            }
+
+            if (web.Length > 0)
+            {
+                if (this.Web == null || this.Web.IndexOf(web, System.StringComparison.CurrentCultureIgnoreCase) < 0)
+                {
+                    return false;
+                }
+            }
+
+
+            if (provincia.Length > 0)
+            {
+                if (this.Provincia == null || this.Provincia.IndexOf(provincia, System.StringComparison.CurrentCultureIgnoreCase) < 0)
+                {
+                    return false;
+                }
+
+            }
+
+            if (region.Length > 0)
+            {
+                if (this.Region == null || this.Region.IndexOf(region, System.StringComparison.CurrentCultureIgnoreCase) < 0)
+                {
+                    return false;
+                }
+            }
+
+            if (actividad.Length > 0)
+            {
+                if (this.Actividad == null || this.Actividad.IndexOf(actividad, System.StringComparison.CurrentCultureIgnoreCase) < 0)
+                {
+                    return false;
+                }
+            }
+
+            if (tipo.Length > 0)
+            {
+                if (this.Tipo.ToString().IndexOf(tipo, System.StringComparison.CurrentCultureIgnoreCase) < 0)
+                {
+                    return false;
+                }
             }
 
             return true;
         }
-
     }
+
 }
