@@ -11,6 +11,7 @@ Gestor básico de información de proveedores y clientes
 - Importar desde un excel
 - Filtrar los datos
 - Ordenar los datos
+- Control de cambios no guardados
 
 ## Manual 
 
@@ -63,6 +64,8 @@ Para exportar los datos a un excel, selecciona el botón Guardar.
 
 Se abrirá una ventana, para elegir donde guardar el archivo y cual será el nombre de este.
 
+Al guardar se ejecutará en segundo plano (si contiene un gran número de datos puede tardar unos segundos). Al abrir o cerrar la aplicación, si hay algún proceso de guardado, la aplicación esperará a que estos procesos terminen. 
+
 ![imagen](./Docs/Pantalla5.png)
 
 #### Importar o Abrir 
@@ -70,6 +73,8 @@ Se abrirá una ventana, para elegir donde guardar el archivo y cual será el nom
 Para importar los datos de un excel, selecciona el botón Abrir. 
 
 Se abrirá una ventana para seleccionar el archivo del que se importará la información. 
+
+**Si el archivo contiene una gran cantidad de datos puede bloquearse unos segundos, hasta haber cargado todos los datos**
 
 ![imagen](./Docs/Pantalla6.png)
 
@@ -85,6 +90,8 @@ Al buscar se obtendrá los elementos de la columna que contengan de forma comple
 Para buscar primero introduce la búsqueda, después selecciona el segundo botón.
 
 Para eliminar una búsqueda selecciona el primer botón
+
+**Con un gran número de datos las búsquedas pueden tardar unos segundos**
 
 ![imagen](./Docs/Pantalla7.png)
 
