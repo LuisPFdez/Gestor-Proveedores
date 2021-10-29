@@ -44,7 +44,10 @@ namespace App
             {
                 throw new NombreNuloException("El nombre ha de tener algun valor");
             }
-
+            if (!Tipo.IsDefined(typeof(Tipo), tipo))
+            {
+                throw new TipoErroneoException("El tipo introducido no existe");
+            }
 
             this.Nombre = nombre;
             this.Telefono1 = telefono1;
@@ -55,14 +58,7 @@ namespace App
             this.Provincia = provincia;
             this.Region = region;
             this.Actividad = actividad;
-            if (Tipo.IsDefined(typeof(Tipo), tipo))
-            {
-                this.Tipo = (Tipo)Tipo.Parse(typeof(Tipo), tipo);
-            }
-            else
-            {
-                throw new TipoErroneoException("El tipo introducido no existe");
-            }
+            this.Tipo = (Tipo)Tipo.Parse(typeof(Tipo), tipo);
         }
 
         public void actualizarDatos(Datos elemento)
