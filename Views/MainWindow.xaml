@@ -118,31 +118,31 @@
             <Label Content="Telefono 1" Target="{Binding ElementName=txtTelefono1}" Grid.Column="0" Grid.Row="1" VerticalAlignment="center"/>
             <TextBox x:Name="txtTelefono1"  Grid.Column="1" Grid.Row="1" Padding="5" VerticalAlignment="center"/>
             
-            <Label Content="Telefono 2" Target="{Binding ElementName=txtTelefono2}" Grid.Column="0" Grid.Row="1" VerticalAlignment="center"/>
-            <TextBox x:Name="txtTelefono2"  Grid.Column="1" Grid.Row="1" Padding="5" VerticalAlignment="center"/>
+            <Label Content="Telefono 2" Target="{Binding ElementName=txtTelefono2}" Grid.Column="0" Grid.Row="2" VerticalAlignment="center"/>
+            <TextBox x:Name="txtTelefono2"  Grid.Column="1" Grid.Row="2" Padding="5" VerticalAlignment="center"/>
 
-            <Label Content="Email 1" Target="{Binding ElementName=txtEmail1}" Grid.Column="0" Grid.Row="2" VerticalAlignment="center"/>
-            <TextBox x:Name="txtEmail1"  Grid.Column="1" Grid.Row="2" Padding="5" VerticalAlignment="center"/>
+            <Label Content="Email 1" Target="{Binding ElementName=txtEmail1}" Grid.Column="0" Grid.Row="3" VerticalAlignment="center"/>
+            <TextBox x:Name="txtEmail1"  Grid.Column="1" Grid.Row="3" Padding="5" VerticalAlignment="center"/>
 
-            <Label Content="Email 2" Target="{Binding ElementName=txtEmail2}" Grid.Column="0" Grid.Row="2" VerticalAlignment="center"/>
-            <TextBox x:Name="txtEmail2"  Grid.Column="1" Grid.Row="2" Padding="5" VerticalAlignment="center"/>
+            <Label Content="Email 2" Target="{Binding ElementName=txtEmail2}" Grid.Column="0" Grid.Row="4" VerticalAlignment="center"/>
+            <TextBox x:Name="txtEmail2"  Grid.Column="1" Grid.Row="4" Padding="5" VerticalAlignment="center"/>
             
-            <Label Content="Web" Target="{Binding ElementName=txtWeb}" Grid.Column="0" Grid.Row="3" VerticalAlignment="center"/>
-            <TextBox x:Name="txtWeb"  Grid.Column="1" Grid.Row="3" Padding="5" VerticalAlignment="center"/>
+            <Label Content="Web" Target="{Binding ElementName=txtWeb}" Grid.Column="0" Grid.Row="5" VerticalAlignment="center"/>
+            <TextBox x:Name="txtWeb"  Grid.Column="1" Grid.Row="5" Padding="5" VerticalAlignment="center"/>
 
-            <Label Content="Provincia" Target="{Binding ElementName=txtProvincia}" Grid.Column="0" Grid.Row="4" VerticalAlignment="center"/>
-            <TextBox x:Name="txtProvincia"  Grid.Column="1" Grid.Row="4" Padding="5" VerticalAlignment="center"/>
+            <Label Content="Provincia" Target="{Binding ElementName=txtProvincia}" Grid.Column="0" Grid.Row="6" VerticalAlignment="center"/>
+            <TextBox x:Name="txtProvincia"  Grid.Column="1" Grid.Row="6" Padding="5" VerticalAlignment="center"/>
 
-            <Label Content="Region" Target="{Binding ElementName=txtRegion}" Grid.Column="0" Grid.Row="5" VerticalAlignment="center"/>
-            <TextBox x:Name="txtRegion"  Grid.Column="1" Grid.Row="5" Padding="5" VerticalAlignment="center"/>
+            <Label Content="Region" Target="{Binding ElementName=txtRegion}" Grid.Column="0" Grid.Row="7" VerticalAlignment="center"/>
+            <TextBox x:Name="txtRegion"  Grid.Column="1" Grid.Row="7" Padding="5" VerticalAlignment="center"/>
 
-            <Label Content="Actividad" Target="{Binding ElementName=txtActividad}" Grid.Column="0" Grid.Row="6" VerticalAlignment="center"/>
-            <TextBox x:Name="txtActividad"  Grid.Column="1" Grid.Row="6" Padding="5" VerticalAlignment="center"/>
+            <Label Content="Actividad" Target="{Binding ElementName=txtActividad}" Grid.Column="0" Grid.Row="8" VerticalAlignment="center"/>
+            <TextBox x:Name="txtActividad"  Grid.Column="1" Grid.Row="8" Padding="5" VerticalAlignment="center"/>
             
-            <Label Content="Tipo" Target="{Binding ElementName=cbxTipo}" Grid.Column="0" Grid.Row="7" VerticalAlignment="center"/>
-            <ComboBox x:Name="cbxTipo" ItemsSource="{Binding Source={StaticResource Tipo}}" Grid.Column="1" Grid.Row="7" Padding="5" VerticalAlignment="center"/>
+            <Label Content="Tipo" Target="{Binding ElementName=cbxTipo}" Grid.Column="0" Grid.Row="9" VerticalAlignment="center"/>
+            <ComboBox x:Name="cbxTipo" ItemsSource="{Binding Source={StaticResource Tipo}}" Grid.Column="1" Grid.Row="9" Padding="5" VerticalAlignment="center"/>
 
-            <Button Width="100" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="8" HorizontalAlignment="right" Click="CerrarBoton" >Cerrar</Button>
+            <Button Width="100" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="10" HorizontalAlignment="right" Click="CerrarBoton" >Cerrar</Button>
 
         </Grid>
        
