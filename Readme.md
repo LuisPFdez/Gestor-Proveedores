@@ -12,6 +12,7 @@ Gestor básico de información de proveedores y clientes
 - Filtrar los datos
 - Ordenar los datos
 - Control de cambios no guardados
+- Ventana de espera
 
 ## Manual 
 
