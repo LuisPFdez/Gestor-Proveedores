@@ -87,6 +87,7 @@ namespace App
 
         private void FiltrarDatos()
         {
+            Message ms = new Message("Buscando ...", "Espera");
             Ventana.DatosDG.ItemsSource = Ventana.DatosGrid.FindAll((Elemento) =>
                 {
                     return Elemento.comparar(DatosBusqueda["Nombre"],
@@ -96,6 +97,7 @@ namespace App
                     DatosBusqueda["Region"], DatosBusqueda["Actividad"],
                     DatosBusqueda["Tipo"]);
                 });
+            ms.Close();
 
         }
 
@@ -220,8 +222,9 @@ namespace App
                         return;
                     }
                 }
-
+                Message ms = new Message("Abriendo ...", "Espera");
                 ImportarDatos(ventana.FileName);
+                ms.Close();
             }
         }
 
