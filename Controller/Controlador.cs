@@ -136,7 +136,7 @@ namespace App
             Tareas = new List<Task>();
         }
 
-        public void Exportar()
+        public bool Exportar()
         {
 
             SaveFileDialog ventana = new SaveFileDialog();
@@ -152,7 +152,9 @@ namespace App
                 {
                     ExportarDatos(ventana.FileName);
                 }));
+                return true;
             }
+            return false;
 
         }
 
@@ -202,26 +204,32 @@ namespace App
 
         public void Importar()
         {
+            if (CambiosRealizados)
+            {
+                MessageBoxResult result = MessageBox.Show("Hay cambios sin guardar, ¿Desea guardarlos?", "Error", MessageBoxButton.YesNoCancel);
+                bool res = true;
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    res = Exportar();
+                }
+
+                if (result == MessageBoxResult.Cancel || !res)
+                {
+                    return;
+                }
+            }
+
+            FinalizarGuardados();
+
             OpenFileDialog ventana = new OpenFileDialog();
             ventana.Title = "Abrir archivo";
             ventana.Filter = FiltroArchivos;
             ventana.InitialDirectory = DirectorioInicio;
             bool? resultado = ventana.ShowDialog();
+            
             if (resultado == true && ventana.CheckFileExists == true)
             {
-                FinalizarGuardados();
-                if (CambiosRealizados)
-                {
-                    MessageBoxResult result = MessageBox.Show("Hay cambios sin guardar, ¿Desea continuar?", "Error", MessageBoxButton.YesNoCancel);
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        Exportar();
-                    }
-                    else if (result == MessageBoxResult.Cancel)
-                    {
-                        return;
-                    }
-                }
                 Message ms = new Message("Abriendo ...", "Espera");
                 ImportarDatos(ventana.FileName);
                 ms.Close();

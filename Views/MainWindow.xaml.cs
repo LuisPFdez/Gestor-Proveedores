@@ -89,20 +89,23 @@ namespace App
         protected override void OnClosing(CancelEventArgs e)
         {
             e.Cancel = true;
-            Controlador.FinalizarGuardados();
             if (Controlador.CambiosRealizados)
             {
-                MessageBoxResult result = MessageBox.Show("Hay cambios sin guardar, ¿Desea continuar?", "Error", MessageBoxButton.YesNoCancel);
+                MessageBoxResult result = MessageBox.Show("Hay cambios sin guardar, ¿Desea guardarlos?", "Error", MessageBoxButton.YesNoCancel);
+                bool res = true;
+                
                 if (result == MessageBoxResult.Yes)
                 {
-                    Controlador.Exportar();
+                    res = Controlador.Exportar();
                 }
-                else if (result == MessageBoxResult.Cancel)
+                
+                if (result == MessageBoxResult.Cancel || ! res)
                 {
                     return;
                 }
             }
 
+            Controlador.FinalizarGuardados();
             e.Cancel = false;
         }
 
