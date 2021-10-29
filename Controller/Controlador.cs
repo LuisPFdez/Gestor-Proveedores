@@ -151,6 +151,7 @@ namespace App
                 Tareas.Add(Task.Run(() =>
                 {
                     ExportarDatos(ventana.FileName);
+                    CambiosRealizados = false;
                 }));
                 return true;
             }
