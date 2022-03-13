@@ -21,8 +21,10 @@ namespace App
                 return;
             }
 
-            this.Close();
-            this.Controlador.CrearNuevoRegistro(new Datos(txtNombre.Text, txtTelefono1.Text, txtTelefono2.Text, txtEmail1.Text, txtEmail2.Text, txtWeb.Text, txtProvincia.Text, txtRegion.Text, txtActividad.Text, cbxTipo.Text));
+            if (this.Controlador.CrearNuevoRegistro(new Datos(txtNombre.Text, txtTelefono1.Text, txtTelefono2.Text, txtEmail1.Text, txtEmail2.Text, txtWeb.Text, txtProvincia.Text, txtRegion.Text, txtActividad.Text, cbxTipo.Text)))
+            {
+                this.Close();
+            }
 
         }
 

@@ -15,7 +15,7 @@ namespace App
         }
 
         void NuevoRegistro();
-        void CrearNuevoRegistro(Datos registro);
+        bool CrearNuevoRegistro(Datos registro);
     }
 
 }

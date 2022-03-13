@@ -41,110 +41,110 @@
 
     <!-- Diseño de la aplicación--> 
 
-    <Grid x:Name="GridPrin" >
-        <Grid.ColumnDefinitions>
-			<ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="0*" />
-		</Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <!-- Grid de botones superiores -->
-        <Grid Grid.Column="0" Grid.Row="0" Margin="5" Grid.ColumnSpan="2" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Margin="5,0" Click="NuevoRegistro" > Nuevo </Button>
-            <Button Grid.Column="1" Margin="5,0" Click="EditarElemento" > Editar </Button>
-            <Button Grid.Column="2" Margin="5,0" Click="BorrarElemento" > Borrar </Button>
-            <Button Grid.Column="3" Margin="5,0" Click="Exportar" > Guardar </Button>
-            <Button Grid.Column="4" Margin="5,0" Click="Importar" > Abrir </Button>
-        </Grid>
-
-        <!-- Grid de datos -->
-        <DataGrid Grid.Column="0" Grid.Row="1" x:Name="DatosDG" AutoGenerateColumns="False" SelectionChanged="MostrarDatos">
-            <DataGrid.Resources>
-                <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                </Style>
-            </DataGrid.Resources>
-            <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Nombre" Binding="{Binding Nombre}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
-                <DataGridTextColumn Width="*" Header="Telefono1" Binding="{Binding Telefono1}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
-                <DataGridTextColumn Width="*" Header="Telefono2" Binding="{Binding Telefono2}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
-                <DataGridTextColumn Width="*" Header="Email1" Binding="{Binding Email1}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
-                <DataGridTextColumn Width="*" Header="Email2" Binding="{Binding Email2}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
-
-                
-                <DataGridTextColumn Width="*" Header="Web" Binding="{Binding Web}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
-                <DataGridTextColumn Width="*" Header="Provincia" Binding="{Binding Provincia}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}"/>
-                <DataGridTextColumn Width="*" Header="Region" Binding="{Binding Region}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
-                <DataGridTextColumn Width="*" Header="Actividad" Binding="{Binding Actividad}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}"/>
-                <DataGridComboBoxColumn  Width="*" Header="Tipo" SelectedItemBinding="{Binding Tipo}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" ItemsSource="{Binding Source={StaticResource Tipo}}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+    <DockPanel>
         
-        <!-- Lateral derecho -->
+        <!-- Menu superior -->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Archivo">
+                <MenuItem Header="Nuevo Archivo" Click="NuevoArchivo"  />
+                <MenuItem Header="Abrir" Click="Importar" />
+                <MenuItem Header="Guardar" Click="Guardar" />
+                <MenuItem Header="Guardar Como..." Click="Exportar" />
+                <Separator />
+                <MenuItem Header="Salir" Click="Cerrar" />
+            </MenuItem>
+            <MenuItem Header="Registro">
+                <MenuItem Header="Nuevo Registro" Click="NuevoRegistro"  />
+                <MenuItem Header="Borrar" Click="BorrarElemento" />
+            </MenuItem>
+        </Menu>
 
-        <Grid Margin="10" x:Name="Columna_Vertical" Grid.Column="1" Grid.Row="1" Visibility="Collapsed">
-            
+        <Grid x:Name="GridPrin" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="0*" />
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-    
-            <Label Content="Nombre" Target="{Binding ElementName=txtNombre}" Grid.Column="0" Grid.Row="0" VerticalAlignment="center"/>
-            <TextBox x:Name="txtNombre"  Grid.Column="1" Grid.Row="0" Padding="5" VerticalAlignment="center"/>
 
-            <Label Content="Telefono 1" Target="{Binding ElementName=txtTelefono1}" Grid.Column="0" Grid.Row="1" VerticalAlignment="center"/>
-            <TextBox x:Name="txtTelefono1"  Grid.Column="1" Grid.Row="1" Padding="5" VerticalAlignment="center"/>
+            <!-- Grid de datos -->
+            <DataGrid Grid.Column="0" x:Name="DatosDG" AutoGenerateColumns="False"  SelectionChanged="MostrarDatos">
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Header="Nombre" Binding="{Binding Nombre}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
+                    <DataGridTextColumn Width="*" Header="Telefono1" Binding="{Binding Telefono1}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
+                    <DataGridTextColumn Width="*" Header="Telefono2" Binding="{Binding Telefono2}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
+                    <DataGridTextColumn Width="*" Header="Email1" Binding="{Binding Email1}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
+                    <DataGridTextColumn Width="*" Header="Email2" Binding="{Binding Email2}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
+
+                    
+                    <DataGridTextColumn Width="*" Header="Web" Binding="{Binding Web}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
+                    <DataGridTextColumn Width="*" Header="Provincia" Binding="{Binding Provincia}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}"/>
+                    <DataGridTextColumn Width="*" Header="Region" Binding="{Binding Region}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" />
+                    <DataGridTextColumn Width="*" Header="Actividad" Binding="{Binding Actividad}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}"/>
+                    <DataGridComboBoxColumn  Width="*" Header="Tipo" SelectedItemBinding="{Binding Tipo}" HeaderTemplate="{Binding Source={StaticResource CabeceraBusqueda}}" ItemsSource="{Binding Source={StaticResource Tipo}}"/>
+                </DataGrid.Columns>
+            </DataGrid>
             
-            <Label Content="Telefono 2" Target="{Binding ElementName=txtTelefono2}" Grid.Column="0" Grid.Row="2" VerticalAlignment="center"/>
-            <TextBox x:Name="txtTelefono2"  Grid.Column="1" Grid.Row="2" Padding="5" VerticalAlignment="center"/>
+            <!-- Lateral derecho -->
 
-            <Label Content="Email 1" Target="{Binding ElementName=txtEmail1}" Grid.Column="0" Grid.Row="3" VerticalAlignment="center"/>
-            <TextBox x:Name="txtEmail1"  Grid.Column="1" Grid.Row="3" Padding="5" VerticalAlignment="center"/>
+            <Grid Margin="10" x:Name="Columna_Vertical" Grid.Column="1" Visibility="Collapsed">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+        
+                <Label Content="Nombre" Target="{Binding ElementName=txtNombre}" Grid.Column="0" Grid.Row="0" VerticalAlignment="center"/>
+                <TextBox x:Name="txtNombre"  Grid.Column="1" Grid.Row="0" Padding="5" VerticalAlignment="center"/>
 
-            <Label Content="Email 2" Target="{Binding ElementName=txtEmail2}" Grid.Column="0" Grid.Row="4" VerticalAlignment="center"/>
-            <TextBox x:Name="txtEmail2"  Grid.Column="1" Grid.Row="4" Padding="5" VerticalAlignment="center"/>
-            
-            <Label Content="Web" Target="{Binding ElementName=txtWeb}" Grid.Column="0" Grid.Row="5" VerticalAlignment="center"/>
-            <TextBox x:Name="txtWeb"  Grid.Column="1" Grid.Row="5" Padding="5" VerticalAlignment="center"/>
+                <Label Content="Telefono 1" Target="{Binding ElementName=txtTelefono1}" Grid.Column="0" Grid.Row="1" VerticalAlignment="center"/>
+                <TextBox x:Name="txtTelefono1"  Grid.Column="1" Grid.Row="1" Padding="5" VerticalAlignment="center"/>
+                
+                <Label Content="Telefono 2" Target="{Binding ElementName=txtTelefono2}" Grid.Column="0" Grid.Row="2" VerticalAlignment="center"/>
+                <TextBox x:Name="txtTelefono2"  Grid.Column="1" Grid.Row="2" Padding="5" VerticalAlignment="center"/>
 
-            <Label Content="Provincia" Target="{Binding ElementName=txtProvincia}" Grid.Column="0" Grid.Row="6" VerticalAlignment="center"/>
-            <TextBox x:Name="txtProvincia"  Grid.Column="1" Grid.Row="6" Padding="5" VerticalAlignment="center"/>
+                <Label Content="Email 1" Target="{Binding ElementName=txtEmail1}" Grid.Column="0" Grid.Row="3" VerticalAlignment="center"/>
+                <TextBox x:Name="txtEmail1"  Grid.Column="1" Grid.Row="3" Padding="5" VerticalAlignment="center"/>
 
-            <Label Content="Region" Target="{Binding ElementName=txtRegion}" Grid.Column="0" Grid.Row="7" VerticalAlignment="center"/>
-            <TextBox x:Name="txtRegion"  Grid.Column="1" Grid.Row="7" Padding="5" VerticalAlignment="center"/>
+                <Label Content="Email 2" Target="{Binding ElementName=txtEmail2}" Grid.Column="0" Grid.Row="4" VerticalAlignment="center"/>
+                <TextBox x:Name="txtEmail2"  Grid.Column="1" Grid.Row="4" Padding="5" VerticalAlignment="center"/>
+                
+                <Label Content="Web" Target="{Binding ElementName=txtWeb}" Grid.Column="0" Grid.Row="5" VerticalAlignment="center"/>
+                <TextBox x:Name="txtWeb"  Grid.Column="1" Grid.Row="5" Padding="5" VerticalAlignment="center"/>
 
-            <Label Content="Actividad" Target="{Binding ElementName=txtActividad}" Grid.Column="0" Grid.Row="8" VerticalAlignment="center"/>
-            <TextBox x:Name="txtActividad"  Grid.Column="1" Grid.Row="8" Padding="5" VerticalAlignment="center"/>
-            
-            <Label Content="Tipo" Target="{Binding ElementName=cbxTipo}" Grid.Column="0" Grid.Row="9" VerticalAlignment="center"/>
-            <ComboBox x:Name="cbxTipo" ItemsSource="{Binding Source={StaticResource Tipo}}" Grid.Column="1" Grid.Row="9" Padding="5" VerticalAlignment="center"/>
+                <Label Content="Provincia" Target="{Binding ElementName=txtProvincia}" Grid.Column="0" Grid.Row="6" VerticalAlignment="center"/>
+                <TextBox x:Name="txtProvincia"  Grid.Column="1" Grid.Row="6" Padding="5" VerticalAlignment="center"/>
 
-            <Button Width="100" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="10" HorizontalAlignment="right" Click="CerrarBoton" >Cerrar</Button>
+                <Label Content="Region" Target="{Binding ElementName=txtRegion}" Grid.Column="0" Grid.Row="7" VerticalAlignment="center"/>
+                <TextBox x:Name="txtRegion"  Grid.Column="1" Grid.Row="7" Padding="5" VerticalAlignment="center"/>
 
+                <Label Content="Actividad" Target="{Binding ElementName=txtActividad}" Grid.Column="0" Grid.Row="8" VerticalAlignment="center"/>
+                <TextBox x:Name="txtActividad"  Grid.Column="1" Grid.Row="8" Padding="5" VerticalAlignment="center"/>
+                
+                <Label Content="Tipo" Target="{Binding ElementName=cbxTipo}" Grid.Column="0" Grid.Row="9" VerticalAlignment="center"/>
+                <ComboBox x:Name="cbxTipo" ItemsSource="{Binding Source={StaticResource Tipo}}" Grid.Column="1" Grid.Row="9" Padding="5" VerticalAlignment="center"/>
+
+                <Button Width="100" Grid.Column="0" Grid.Row="10" HorizontalAlignment="right"  Click="EditarElemento" > Editar </Button>
+                <Button Width="100" Grid.Column="1" Grid.Row="10" HorizontalAlignment="right" Click="CerrarBoton" >Cerrar</Button>
+
+            </Grid>
+        
         </Grid>
-       
-    </Grid>
+    </DockPanel>
 </Window>

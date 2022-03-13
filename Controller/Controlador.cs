@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 using ClosedXML.Excel;
+using System.Linq;
 
 namespace App
 {
@@ -24,6 +25,8 @@ namespace App
 
         private List<Task> Tareas;
 
+        private String archivoGuardado;
+
         public Controlador(MainWindow ventana)
         {
             this.Ventana = ventana;
@@ -42,6 +45,8 @@ namespace App
 
             Tareas = new List<Task>();
             CambiosRealizados = false;
+            archivoGuardado = null;
+            Ventana.Title = "Nuevo Archivo";
         }
 
         public void MostrarColumna()
@@ -78,6 +83,31 @@ namespace App
             }
         }
 
+        public void NuevoArchivo()
+        {
+            if (CambiosRealizados == true)
+            {
+                MessageBoxResult result = MessageBox.Show("Hay cambios sin guardar, ¿Desea guardarlos?", "Error", MessageBoxButton.YesNoCancel);
+                bool res = true;
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    res = Guardar();
+                }
+
+                if (result == MessageBoxResult.Cancel || !res)
+                {
+                    return;
+                }
+            }
+            FinalizarGuardados();
+
+            archivoGuardado = null;
+            Ventana.Title = "Nuevo Archivo";
+            Ventana.DatosGrid = new List<Datos>();
+            Ventana.DatosDG.ItemsSource = Ventana.DatosGrid;
+            Ventana.DatosDG.Items.Refresh();
+        }
 
         public void Buscar(string clave, string valor)
         {
@@ -109,6 +139,12 @@ namespace App
                 return;
             }
 
+            if (MessageBox.Show("¿Quieres eliminar " + index.Nombre + "?", "Alerta", MessageBoxButton.YesNo) == MessageBoxResult.No)
+            {
+                MessageBox.Show("No se ha eliminado nada", "Alerta");
+                return;
+            }
+
             CambiosRealizados = true;
             Ventana.DatosGrid.Remove(index);
 
@@ -123,17 +159,41 @@ namespace App
             nr.nuevoContacto();
         }
 
-        public void CrearNuevoRegistro(Datos registro)
+        public bool CrearNuevoRegistro(Datos registro)
         {
+
+            if (Ventana.DatosGrid.Select((datos) => datos.Nombre).ToArray<String>().Contains(registro.Nombre))
+            {
+                MessageBox.Show("Ya existe otro registro con ese nombre");
+                return false;
+            }
             Ventana.DatosGrid.Add(registro);
             CambiosRealizados = true;
             FiltrarDatos();
+            return true;
         }
 
         public void FinalizarGuardados()
         {
             Task.WaitAll(Tareas.ToArray());
             Tareas = new List<Task>();
+        }
+
+        public bool Guardar()
+        {
+            if (String.IsNullOrEmpty(archivoGuardado))
+            {
+                return Exportar();
+            }
+            else
+            {
+                Tareas.Add(Task.Run(() =>
+                 {
+                     ExportarDatos(archivoGuardado);
+                     CambiosRealizados = false;
+                 }));
+                return true;
+            }
         }
 
         public bool Exportar()
@@ -148,6 +208,8 @@ namespace App
 
             if (resultado == true)
             {
+                archivoGuardado = ventana.FileName;
+                Ventana.Title = archivoGuardado;
                 Tareas.Add(Task.Run(() =>
                 {
                     ExportarDatos(ventana.FileName);
@@ -212,7 +274,7 @@ namespace App
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    res = Exportar();
+                    res = Guardar();
                 }
 
                 if (result == MessageBoxResult.Cancel || !res)
@@ -228,10 +290,12 @@ namespace App
             ventana.Filter = FiltroArchivos;
             ventana.InitialDirectory = DirectorioInicio;
             bool? resultado = ventana.ShowDialog();
-            
+
             if (resultado == true && ventana.CheckFileExists == true)
             {
                 Message ms = new Message("Abriendo ...", "Espera");
+                archivoGuardado = ventana.FileName;
+                Ventana.Title = archivoGuardado;
                 ImportarDatos(ventana.FileName);
                 ms.Close();
             }

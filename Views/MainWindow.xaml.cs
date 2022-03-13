@@ -76,6 +76,14 @@ namespace App
             Controlador.EsconderColumna();
         }
 
+        void Guardar(Object sender, RoutedEventArgs e){
+            Controlador.Guardar();
+        }
+
+        void NuevoArchivo(Object sender, RoutedEventArgs e){
+            Controlador.NuevoArchivo();
+        }
+
         void Exportar(object sender, RoutedEventArgs e)
         {
             Controlador.Exportar();
@@ -84,6 +92,27 @@ namespace App
         void Importar(object sender, RoutedEventArgs e)
         {
             Controlador.Importar();
+        }
+
+        void Cerrar(object sender, RoutedEventArgs e){
+            if (Controlador.CambiosRealizados)
+            {
+                MessageBoxResult result = MessageBox.Show("Hay cambios sin guardar, ¿Desea guardarlos?", "Error", MessageBoxButton.YesNoCancel);
+                bool res = true;
+                
+                if (result == MessageBoxResult.Yes)
+                {
+                    res = Controlador.Guardar();
+                }
+                
+                if (result == MessageBoxResult.Cancel || ! res)
+                {
+                    return;
+                }
+            }
+
+            Controlador.FinalizarGuardados();
+            Close();
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -96,7 +125,7 @@ namespace App
                 
                 if (result == MessageBoxResult.Yes)
                 {
-                    res = Controlador.Exportar();
+                    res = Controlador.Guardar();
                 }
                 
                 if (result == MessageBoxResult.Cancel || ! res)
